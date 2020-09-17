@@ -1,0 +1,25 @@
+# This config file for Travis CI utilizes ros-industrial/industrial_ci package.
+# For more info for the package, see https://github.com/ros-industrial/industrial_ci/blob/master/README.rst
+language: generic
+dist: bionic
+services:
+  - docker
+
+git:
+  quiet: true # optional, silences the cloning of the target repository
+
+# configure the build environment(s)
+# https://github.com/ros-industrial/industrial_ci/blob/master/doc/index.rst#variables-you-can-configure
+env:
+  global: # global settings for all jobs
+    - ROS_REPO=ros-testing # ros
+    - ROS_PARALLEL_JOBS=-j2 # Don't exhaust virtual memory
+    - CMAKE_ARGS='-DCMAKE_BUILD_TYPE=Debug'
+  matrix:
+    - ROS_DISTRO="kinetic"
+    - ROS_DISTRO="melodic"
+    - ROS_DISTRO="noetic"
+install:
+  - git clone --quiet --depth 1 https://github.com/ros-industrial/industrial_ci.git .ci_config -b legacy
+script:
+  - source .ci_config/travis.sh
