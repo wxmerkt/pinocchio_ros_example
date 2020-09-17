@@ -1,0 +1,1 @@
+# pinocchio_ros_example
