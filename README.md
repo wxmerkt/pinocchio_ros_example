@@ -13,3 +13,7 @@ target_link_libraries(${PROJECT_NAME} pinocchio::pinocchio)
 ```
 
 This example is built on Travis CI for Kinetic, Melodic, and Noetic.
+
+## Include order
+
+When including a ROS header, e.g. `ros/ros.h`, compilation errors may occur. This is due to different requirements for `BOOST_MPL_LIMIT_LIST_SIZE` between ROS and Pinocchio. To avoid this error, make sure to always include `pinocchio/fwd.hpp` _before any other header_.
